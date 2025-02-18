@@ -305,7 +305,7 @@ class RayPPOTrainer(object):
                  val_reward_fn=None):
 
         # assert torch.cuda.is_available(), 'cuda must be available on driver'
-
+        pprint(f'！！！！！！！！！！！！！ Custom RayPPOTrainer class ！！！！！！！！！！！！！')
         self.tokenizer = tokenizer
         self.config = config
         self.reward_fn = reward_fn
@@ -574,7 +574,8 @@ class RayPPOTrainer(object):
 
         for epoch in range(self.config.trainer.total_epochs):
             for batch_dict in self.train_dataloader:
-                print(f'epoch {epoch}, step {self.global_steps}')
+                
+                print(f'Custom RayPPOTrainer class: epoch {epoch}, step {self.global_steps}')
                 metrics = {}
                 timing_raw = {}
 
