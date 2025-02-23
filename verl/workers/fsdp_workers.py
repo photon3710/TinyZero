@@ -168,6 +168,7 @@ class ActorRolloutRefWorker(Worker):
                                                                 trust_remote_code=trust_remote_code)
             # some parameters may not in torch_dtype. TODO(zhangchi.usc1992) remove this after we switch to fsdp2
             actor_module.to(torch_dtype)
+            #actor_module.to("cuda")
 
             if enable_gradient_checkpointing:
                 actor_module.gradient_checkpointing_enable(gradient_checkpointing_kwargs={'use_reentrant': False})
@@ -594,6 +595,7 @@ class CriticWorker(Worker):
 
             # some parameters may not in torch_dtype
             critic_module.to(torch_dtype)
+            #critic_module.to("cuda")
 
             if config.model.get('enable_gradient_checkpointing', False):
                 critic_module.gradient_checkpointing_enable(gradient_checkpointing_kwargs={'use_reentrant': False})
@@ -832,6 +834,7 @@ class RewardModelWorker(Worker):
                                                                             attn_implementation='flash_attention_2',
                                                                             trust_remote_code=trust_remote_code)
             reward_module.to(torch.bfloat16)
+            #reward_module.to("cuda")
         auto_wrap_policy = get_fsdp_wrap_policy(module=reward_module, config=self.config.model.fsdp_config)
 
         reward_module = FSDP(
