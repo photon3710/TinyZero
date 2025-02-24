@@ -709,6 +709,6 @@ class RayPPOTrainer(object):
                         logger.log(data=val_metrics, step=self.global_steps)
                     return
 
-                if ( batch.batch['token_level_scores'] >= 1. ).any():
-                    print(f'Find solutions in training repeat: epoch {epoch}, step {self.global_steps}')
-                    break
+                #if ( batch.batch['token_level_scores'] >= 1. ).any():
+                    #print(f'Find solutions in training repeat: epoch {epoch}, step {self.global_steps}')
+                    #break
