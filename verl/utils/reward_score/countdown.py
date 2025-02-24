@@ -22,6 +22,9 @@ def extract_solution(solution_str):
         final_answer = matches[-1].group(1).strip()
     else:
         final_answer = None
+        
+    if final_answer and '=' in final_answer:
+        final_answer = final_answer.split('=')[0].strip()
     return final_answer
 
 
