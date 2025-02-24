@@ -612,6 +612,7 @@ class RayPPOTrainer(object):
                     # balance the number of valid tokens on each dp rank.
                     # Note that this breaks the order of data inside the batch.
                     # Please take care when you implement group based adv computation such as GRPO and rloo
+                    print(f"!!!!!!!!! balance the number of valid tokens on each dp rank !!!!!!!!!!!")
                     self._balance_batch(batch, metrics=metrics)
 
                     # compute global_valid tokens
@@ -620,12 +621,14 @@ class RayPPOTrainer(object):
                     if self.use_reference_policy:
                         # compute reference log_prob
                         with _timer('ref', timing_raw):
+                            print(f"!!!!!!!!! compute reference log_prob !!!!!!!!!!!")
                             ref_log_prob = self.ref_policy_wg.compute_ref_log_prob(batch)
                             batch = batch.union(ref_log_prob)
 
                     # compute values
                     if self.use_critic:
                         with _timer('values', timing_raw):
+                            print(f"!!!!!!!!! compute values !!!!!!!!!!!")
                             values = self.critic_wg.compute_values(batch)
                             batch = batch.union(values)
 
@@ -635,6 +638,7 @@ class RayPPOTrainer(object):
                         # the results from reward model and rule-based results.
                         if self.use_rm:
                             # we first compute reward model score
+                            print(f"!!!!!!!!! we first compute reward model score !!!!!!!!!!!")
                             reward_tensor = self.rm_wg.compute_rm_score(batch)
                             batch = batch.union(reward_tensor)
 
